@@ -40,7 +40,7 @@ def run(cmd, input=None, ssh_to="local", tab_split=False, valid_exitcodes=[ 0 ],
 
     #use ssh?
     if ssh_to != "local":
-        encoded_cmd.extend(["ssh -T -c aes128-ctr -o Compression=no -x", ssh_to])
+        encoded_cmd.extend(["ssh", ssh_to])
 
 
         #make sure the command gets all the data in utf8 format:
@@ -280,7 +280,7 @@ def zfs_transfer(ssh_source, source_filesystem, first_snapshot, second_snapshot,
     source_cmd=[]
 
     if ssh_source != "local":
-        source_cmd.extend([ "ssh -T -c aes128-ctr -o Compression=no -x", ssh_source ])
+        source_cmd.extend([ "ssh", "-T", "-o", "Compression=no", "-c", "aes128-ctr", "-x", ssh_source ])
 
     source_cmd.extend(["zfs", "send",  ])
 
@@ -328,7 +328,7 @@ def zfs_transfer(ssh_source, source_filesystem, first_snapshot, second_snapshot,
     target_cmd=[]
 
     if ssh_target != "local":
-        target_cmd.extend([ "ssh -T -c aes128-ctr -o Compression=no -x", ssh_target ])
+        target_cmd.extend([ "ssh", "-T", "-o", "Compression=no", "-c", "aes128-ctr", "-x", ssh_target ])
 
     target_cmd.extend(["zfs", "recv", "-u" ])
 
